@@ -140,7 +140,7 @@ const user= await User.findOne({email}).select("+password");
 
         user.avatar={
           public_id:mycloud.public_id,
-          url:mycloud.url,
+          url:mycloud.secure_url,
         }
 
         await user.save();
@@ -309,8 +309,8 @@ const user= await User.findOne({email}).select("+password");
 
       const subscription=await User.find({"subscription.status":"active"})
 
-      stats[0].users=await User.countDocuments();
-      stats[0].subscription=subscription.length;
+      stats[0].users = await User.countDocuments();
+      stats[0].subscription = subscription.length;
       stats[0].createdAt=new Date(Date.now());
 
       await stats[0].save();
