@@ -30,11 +30,13 @@ export const register = catchAsyncError(async(req,res,next)=>{
 
 
  user=await User.create({
-  name,email,password,
+  name,
+  email,
+  password,
   avatar:{
     public_id:mycloud.public_id,
     url:mycloud.secure_url,
-  }
+  },
  })
 sendToken(res,user,"Registered Successfully",201)
 
@@ -125,8 +127,8 @@ const user= await User.findOne({email}).select("+password");
       .json({
        success:true,
        message:"Profile Updated Successfully"
-      })
-      })
+      });
+      });
 
       export const updateProfilePicture=catchAsyncError(async (req,res,next)=>{
 
@@ -149,8 +151,8 @@ const user= await User.findOne({email}).select("+password");
         res.status(200).json({
           success:true,
           message:"Profile Picture Updated Successfully",
-        })
-      })
+        });
+      });
  
       export const forgetPassword = catchAsyncError(async (req,res,next)=>{
         const {email}=req.body;
