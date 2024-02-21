@@ -91,4 +91,4 @@ schema.methods.getResetToken= function(){
 }
 
 
-export var User=mongoose.model("User",schema);
+export const User=mongoose.model("User",schema);
