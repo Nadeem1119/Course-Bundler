@@ -114,7 +114,7 @@ const user= await User.findOne({email}).select("+password");
 
       const {name,email}=req.body;
   
-      const user=await User.findById(req.user._id).select("+password");
+      const user=await User.findById(req.user._id);
 
       if(name) user.name=name;
       if(email) user.email=email;
