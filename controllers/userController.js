@@ -50,14 +50,14 @@ export const login = catchAsyncError(async(req,res,next)=>{
  
 const user= await User.findOne({email}).select("+password");
  
-  if(!user) return next(new ErrorHandler("User Doesn't Exist ",401))
+  if(!user) return next(new ErrorHandler("Incorrect Email or Password",401))
 
   const isMatch= await user.comparePassword(password);
 
   if(!isMatch) return next(new ErrorHandler("Incorrect Email or Password",401))
 
  
- sendToken(res,user,`Welcome Back ${user.name}`,200);
+ sendToken(res,user,`Welcome Back, ${user.name}`,200);
  
  });
 
@@ -159,7 +159,7 @@ const user= await User.findOne({email}).select("+password");
 
         const user= await User.findOne({email});
 
-        if(!user) return next(new ErrorHandler("User doesn't Exist",400))
+        if(!user) return next(new ErrorHandler("User not found",400))
 
         const resetToken = await user.getResetToken();
 
@@ -167,7 +167,7 @@ const user= await User.findOne({email}).select("+password");
 
         const url=`${process.env.FRONTEND_URL}/resetpassword/${resetToken}`
 
-        const message=`Click on the link to reset your password. ${url} . If you have not requested then please ignore it `
+        const message=`Click on the link to reset your password. ${url} . If you have not requested then please ignore it `;
        
         //Send Token via email
         await sendEmail(user.email,"CourseBundler Reset Password",message);
