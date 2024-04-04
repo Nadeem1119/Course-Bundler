@@ -9,7 +9,6 @@ import { corsErrors } from "./middlewares/auth.js";
 
 connectDB();
 
-app.use(corsErrors);
 
 cloudinary.v2.config({
   cloud_name:process.env.CLOUDINARY_CLIENT_NAME,
