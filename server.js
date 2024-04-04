@@ -29,7 +29,11 @@ nodeCron.schedule("0 0 0 1 * *",async ()=>{
   }
 })
 
-app.use(cors());
+app.use(cors({
+  origin:"*",
+}
+
+));
 
 
 app.listen(process.env.PORT,()=>{
