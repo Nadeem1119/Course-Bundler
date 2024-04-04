@@ -30,9 +30,7 @@ nodeCron.schedule("0 0 0 1 * *",async ()=>{
 })
 
 app.use(cors({
-  origin:"*",
-  header:"*",
-  credentials:true,
+  origin:"https://course-bundler-afxt.onrender.com/api/v1",
 }
 ));
 
