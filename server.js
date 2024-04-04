@@ -31,6 +31,7 @@ nodeCron.schedule("0 0 0 1 * *",async ()=>{
 
 app.use(cors({
   origin:"*",
+  header:"*",
   credentials:true,
 }
 ));
