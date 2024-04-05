@@ -10,7 +10,7 @@ import cors from "cors";
 connectDB();
 
 app.use(cors({
-  origin:"http://localhost:3000",
+  origin:process.env.BACKEND_URL,
   methods:"POST,GET,PUT,DELETE",
 }))
 
