@@ -5,14 +5,9 @@ import cloudinary from "cloudinary"
 import RazorPay from "razorpay"
 import nodeCron from "node-cron"
 import { Stats } from "./models/Stats.js";
-import cors from "cors";
 
 connectDB();
 
-app.use(cors({
-  origin:process.env.BACKEND_URL,
-  methods:"POST,GET,PUT,DELETE",
-}))
 
 cloudinary.v2.config({
   cloud_name:process.env.CLOUDINARY_CLIENT_NAME,
