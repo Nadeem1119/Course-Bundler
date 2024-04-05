@@ -10,8 +10,8 @@ import cors from "cors";
 connectDB();
 
 app.use(cors({
-  origin:"",
-  methods:"",
+  origin:"http://localhost:3000",
+  methods:"POST,GET,PUT,DELETE",
 }))
 
 cloudinary.v2.config({
