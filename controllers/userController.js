@@ -155,28 +155,28 @@ const user= await User.findOne({email}).select("+password");
       });
  
       export const forgetPassword = catchAsyncError(async (req,res,next)=>{
-        const {email}=req.body;
+        const { email }=req.body;
 
-        const user= await User.findOne({email});
+        const user= await User.findOne({ email });
 
-        if(!user) return next(new ErrorHandler("User not found",400))
+        if(!user) return next(new ErrorHandler("User not found", 400))
 
         const resetToken = await user.getResetToken();
 
         await user.save();
 
-        const url=`${process.env.FRONTEND_URL}/resetpassword/${resetToken}`
+        const url = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`
 
         const message=`Click on the link to reset your password. ${url} . If you have not requested then please ignore it `;
        
         //Send Token via email
-        await sendEmail(user.email,"CourseBundler Reset Password",message);
+        await sendEmail(user.email, "CourseBundler Reset Password", message);
 
         res.status(200).json({
           success:true,
           message:`Reset Token has been sent to ${user.email}`,
-        })
-      })
+        });
+      });
 
       export const resetPassword  = catchAsyncError(async (req,res,next)=>{
         const {token}=req.params;
@@ -251,34 +251,33 @@ const user= await User.findOne({email}).select("+password");
 
       //Admin Controllers
       export const getAllUsers=catchAsyncError(async (req,res,next)=>{
-        const users=await User.find({});
-
+        const users = await User.find({});
 
         res.status(200).json({
           success:true,
           users,
-        })
-      })
+        });
+      });
 
       export const updateRole=catchAsyncError(async (req,res,next)=>{
-        const user=await User.findById(req.params.id);
+        const user = await User.findById(req.params.id);
       
         if(!user) return next(new ErrorHandler("User Not Found",404))
 
-        if(user.role==="user") user.role="admin";
-        else user.role="user";
+        if(user.role === "user") user.role = "admin";
+        else user.role = "user";
 
         await user.save();
 
         res.status(200).json({
           success:true,
           message:"Role Updated",
-        })
-      })
+        });
+      });
       export const deleteUser=catchAsyncError(async (req,res,next)=>{
-        const user=await User.findById(req.params.id);
+        const user = await User.findById(req.params.id);
       
-        if(!user) return next(new ErrorHandler("User Not Found",404))
+        if(!user) return next(new ErrorHandler("User Not Found", 404))
 
         await cloudinary.v2.uploader.destroy(user.avatar.public_id)
 
@@ -306,14 +305,14 @@ const user= await User.findOne({email}).select("+password");
         })
       })
       
-      User.watch().on("change",async()=>{
-        const stats=await Stats.find({}).sort({createdAt:"desc"}).limit(1);
+      User.watch().on("change", async()=>{
+        const stats = await Stats.find({}).sort({ createdAt: "desc" }).limit(1);
 
-      const subscription=await User.find({"subscription.status":"active"})
+      const subscription = await User.find({ "subscription.status": "active" })
 
       stats[0].users = await User.countDocuments();
       stats[0].subscription = subscription.length;
-      stats[0].createdAt=new Date(Date.now());
+      stats[0].createdAt = new Date(Date.now());
 
       await stats[0].save();
       })

@@ -75,20 +75,20 @@ schema.methods.getJWTToken=function(){
     expiresIn: "15d",
   });
 }
-schema.methods.comparePassword= async function(password){
+schema.methods.comparePassword = async function(password){
   return await bcrypt.compare(password,this.password)
 }
  
-schema.methods.getResetToken= function(){
+schema.methods.getResetToken= function() {
 
-  const resetToken= crypto.randomBytes(20).toString("hex");
+  const resetToken = crypto.randomBytes(20).toString("hex");
 
-  this.resetPasswordToken=crypto.createHash("sha256").update(resetToken).digest("hex");
+  this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
-  this.resetPasswordExpire=Date.now()+15*60*1000;
+  this.resetPasswordExpire=Date.now() + 15 * 60 * 1000;
 
   return resetToken;
-}
+};
 
 
-export const User=mongoose.model("User",schema);
+export const User = mongoose.model("User", schema);
