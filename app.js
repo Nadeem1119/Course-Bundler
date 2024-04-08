@@ -19,9 +19,9 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(cors({
+  allowedHeaders:"*",
+  allowedMethods:"*",
   origin:"*",
-  credentials:true,
-  methods:["GET","POST","PUT","DELETE"],
 }));
 
 import course from "./routes/courseRoutes.js"
