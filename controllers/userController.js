@@ -1,10 +1,10 @@
 import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
-import {User} from "../models/User.js"
+import { User } from "../models/User.js"
 import { sendToken } from "../utils/sendTokens.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto"
-import {Course} from "../models/Course.js"
+import { Course } from "../models/Course.js"
 import cloudinary from "cloudinary"
 import getDataUri from "../utils/dataUri.js";
 import { Stats } from "../models/Stats.js";
