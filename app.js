@@ -19,7 +19,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(cors({
-  allowedHeaders:"*",
+  allowedHeaders:"Content-Type",
   allowedMethods:["GET","PUT","POST","DELETE"],
   origin:process.env.FRONTEND_URL,
   credentials:true,
