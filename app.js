@@ -22,6 +22,7 @@ app.use(cors({
   allowedHeaders:"*",
   allowedMethods:"*",
   origin:"*",
+  credentials:true,
 }));
 
 import course from "./routes/courseRoutes.js"
