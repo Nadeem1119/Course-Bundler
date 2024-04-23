@@ -165,7 +165,7 @@ const user= await User.findOne({email}).select("+password");
 
         await user.save();
 
-        const url = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`
+        const url = `http://localhost:3000/resetpassword/${resetToken}`
 
         const message=`Click on the link to reset your password. ${url} . If you have not requested then please ignore it `;
        
@@ -305,7 +305,7 @@ const user= await User.findOne({email}).select("+password");
         })
       })
       
-      User.watch().on("change", async()=>{
+      User.watch().on("change", async () => {
         const stats = await Stats.find({}).sort({ createdAt: "desc" }).limit(1);
 
       const subscription = await User.find({ "subscription.status": "active" })
