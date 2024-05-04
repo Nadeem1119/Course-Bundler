@@ -215,8 +215,7 @@ const user= await User.findOne({email}).select("+password");
         })
 
         const itemExist = user.playlist.find((item)=>{
-          if(item.course.toString()===course._id.toString())
-          return true
+          if(item.course.toString()===course._id.toString()) return true
         })
         if(itemExist) return next(new ErrorHandler("Item already Exists",409));
 
