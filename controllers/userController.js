@@ -203,29 +203,33 @@ const user= await User.findOne({email}).select("+password");
       })
       export const addToPlaylist=catchAsyncError(async (req,res,next)=>{
 
-        const user=await User.findById(req.user._id);
+        const user = await User.findById(req.user._id);
 
-        const course=await Course.findById(req.body.id);
+        const course = await Course.findById(req.body.id);
 
-        if(!course) return next(new ErrorHandler("Invalidcourse Id",404))
+        if(!course) return next(new ErrorHandler("Invalid course  Id",404))
+       
+        const itemExist = user.playlist.find((item)=>{
+          if (item.course.toString() === course._id.toString())
+            { 
+              return true
+            }
+        });
+        if(itemExist) return next(new ErrorHandler("Item already Exists", 409));
 
         user.playlist.push({
           course:course._id,
           poster:course.poster.url,
         })
 
-        const itemExist = user.playlist.find((item)=>{
-          if(item.course.toString()===course._id.toString()) return true
-        })
-        if(itemExist) return next(new ErrorHandler("Item already Exists",409));
 
         await user.save();
 
         res.status(200).json({
           success:true,
           message:"Added To Playlist",
-        })
-      })
+        });
+      });
 
       export const removeFromPlaylist=catchAsyncError(async (req,res,next)=>{
         const user=await User.findById(req.user._id);
