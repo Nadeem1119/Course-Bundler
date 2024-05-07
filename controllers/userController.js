@@ -258,7 +258,7 @@ const user= await User.findOne({email}).select("+password");
 
         res.status(200).json({
           success:true,
-          users,
+          users
         });
       });
 
