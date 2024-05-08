@@ -5,7 +5,7 @@ import bcrypt from "bcrypt"
 import crypto from "crypto"
 
 
-const schema=new mongoose.Schema({
+const schema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter your name"],
