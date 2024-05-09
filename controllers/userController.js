@@ -314,13 +314,13 @@ const user= await User.findOne({email}).select("+password");
 
       const subscription = await User.find({ "subscription.status": "active" })
 
-      if (stats && stats.length > 0) {
+      if (stats[0] && stats[0].length > 0) {
 
         stats[0].users = await User.countDocuments();
         stats[0].subscription = subscription.length;
        stats[0].createdAt = new Date(Date.now());
-       
-       stats[0].save();
+
+       await stats[0].save();
       };
     
       });
