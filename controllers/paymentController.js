@@ -6,7 +6,7 @@ import ErrorHandler from "../utils/ErrorHandler.js";
 
 
 
-export const buySubscription = catchAsyncError(async (req,res,next) => {
+export const buySubscription =catchAsyncError(async (req,res,next) => {
 
  const user = await User.findById(req.user._id);
 
