@@ -318,9 +318,9 @@ const user= await User.findOne({email}).select("+password");
         stats[0].users = await User.countDocuments();
         stats[0].subscription = subscription.length;
        stats[0].createdAt = new Date(Date.now());
-       
+       stats[0].save();
       }
-      await stats[0].save();
+    
       });
 
   
