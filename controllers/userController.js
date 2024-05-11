@@ -308,23 +308,23 @@ const user= await User.findOne({email}).select("+password");
         })
       })
       
+      
       User.watch().on("change", async () => {
-
-        const stats = await Stats.find({}).sort({ createdAt: "desc" }).limit(1);
-
-      const subscription = await User.find({ "subscription.status": "active" })
-
-      if (stats[0] && stats[0].length > 0) {
-
-        stats[0].users = await User.countDocuments();
-        stats[0].subscription = subscription.length;
-       stats[0].createdAt = new Date(Date.now());
-
-        stats[0].save();
-      };
+        try {
+            const stats = await Stats.findOneAndUpdate({}, {
+                $set: {
+                    users: await User.countDocuments(),
+                    subscription: await User.countDocuments({ "subscription.status": "active" }),
+                    createdAt: new Date()
+                }
+            }, { sort: { createdAt: -1 }, upsert: true });
     
-      });
-
+            console.log("Stats updated:", stats);
+        } catch (error) {
+            console.error("Error updating stats:", error);
+        }
+    });
+    
   
 
   
