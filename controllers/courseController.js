@@ -133,7 +133,7 @@ export const deleteLecture = catchAsyncError(async (req,res,next)=>{
   if(!course) return next(new ErrorHandler("course Not found",404))
 
   const lecture=course.lectures.find((item)=>{
-    if(item._id.toString()=== lectureId.toString()) return item;
+    if(item._id.toString() === lectureId.toString()) return item;
   })
   await cloudinary.v2.uploader.destroy(lecture.video.public_id,{
     resource_type:"video",
@@ -142,8 +142,11 @@ export const deleteLecture = catchAsyncError(async (req,res,next)=>{
   course.lectures=course.lectures.filter((item)=>{
     if(item._id.toString()!==lectureId.toString()) return item;
   })
+  
+  course.numOfVideos=course.lectures.length;
 
-
+  await course.save();
+  
   res.status(200).json({
     success:true,
     message:"Lecture Deleted Successfully",
