@@ -146,7 +146,7 @@ export const deleteLecture = catchAsyncError(async (req,res,next)=>{
   course.numOfVideos=course.lectures.length;
 
   await course.save();
-  
+
   res.status(200).json({
     success:true,
     message:"Lecture Deleted Successfully",
@@ -163,10 +163,9 @@ Course.watch().on("change",async()=>{
 
   for (let i = 0; i < courses.length; i++) {
      totalViews +=courses[i].views;
-   
+     }
      stats[0].views=totalViews;
      stats[0].createdAt=new Date(Date.now());
      
      await stats[0].save();
-  }
 })
